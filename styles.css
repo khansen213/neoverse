@@ -1,0 +1,445 @@
+body {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+    background-color: #f0f0f0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    overflow: hidden;
+}
+
+body, .container, .scroll-menu, .control-buttons, .copy-all-container, .hamburger-menu, .notification {
+    user-select: none;
+}
+
+.particle-info td {
+    user-select: text;
+}
+
+.container {
+    display: flex;
+    flex-direction: row;
+    width: 90%;
+    max-width: 1200px;
+    height: 80vh;
+    background: #d3d3d3;
+    backdrop-filter: blur(10px);
+    border-radius: 20px;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    position: relative;
+}
+
+.red-dot, .yellow-dot, .green-dot {
+    position: absolute;
+    top: 13px;
+    width: 13px;
+    height: 13px;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: transform 0.3s ease;
+    z-index: 1000;
+    box-shadow: 0 0 9px rgba(0, 0, 0, 0.2);
+}
+
+.red-dot {
+    right: 60px;
+    background-color: #ff4d4d;
+}
+
+.yellow-dot {
+    right: 40px;
+    background-color: #ffcc00;
+}
+
+.green-dot {
+    right: 20px;
+    background-color: #66ff66;
+}
+
+.red-dot:hover, .yellow-dot:hover, .green-dot:hover {
+    transform: scale(1.2);
+}
+
+.scroll-menu {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    background: #333;
+    gap: 1em;
+    box-sizing: border-box;
+    padding: 2vh;
+    border-top-left-radius: 20px;
+    border-bottom-left-radius: 20px;
+    overflow-y: auto;
+    position: relative;
+    align-items: center;
+    padding-top: 0px;
+}
+
+.sticky-container {
+    position: sticky;
+    top: 0;
+    width: 100%;
+    padding-top: 1.5em;
+    height: 150px;
+    background-color: #333;
+    z-index: 10;
+    display: flex;
+    flex-direction: column;
+    gap: 1em;
+    align-items: center;
+    padding-bottom: 1em;
+}
+
+.scroll-menu::-webkit-scrollbar {
+    display: none;
+}
+
+.menu-item {
+    color: white;
+    background: #444;
+    text-align: center;
+    border-radius: 6px;
+    padding: 9px;
+    height: 2em;
+    width: 80%;
+    line-height: 2em;
+    transition: background 0.3s ease, transform 0.3s ease;
+    margin-right: 10px;
+    display: block;
+}
+
+.menu-item:hover {
+    background: #555;
+    transform: scale(1.02);
+    cursor: pointer;
+}
+
+.particle-info {
+    flex: 2;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 40px;
+    border: none;
+    box-sizing: border-box;
+    border-radius: 0 16px 16px 0;
+    background-color: #EBE9E9;
+    backdrop-filter: blur(20px);
+    box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    position: relative;
+}
+
+.particle-info h2 {
+    margin-bottom: 20px;
+    font-size: 24px;
+    text-align: center;
+    z-index: 1;
+}
+
+.table-container {
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    position: relative;
+    z-index: 1;
+    border-radius: 16px;
+    border: none;
+}
+
+.table-container::-webkit-scrollbar {
+    display: none;
+}
+
+.particle-info table {
+    width: 100%;
+    border-collapse: collapse;
+    border-spacing: 0;
+    border-radius: 16px;
+    overflow: hidden;
+}
+
+.particle-info th {
+    background-color: #ddd;
+    padding: 15px;
+    text-align: left;
+    transition: background 0.3s ease;
+    border-bottom: 1px solid #ddd;
+    position: sticky;
+    top: 0;
+    cursor: default;
+}
+
+.particle-info td {
+    padding: 15px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+    cursor: pointer;
+    transition: background 0.3s ease;
+}
+
+.particle-info td:hover {
+    background: #e0e0e0;
+}
+
+.particle-info tr:nth-child(odd) {
+    background: #f2f2f2;
+    transition: background .1s ease-in;
+}
+
+.particle-info tr:nth-child(even) {
+    background: #fff;
+    transition: background .1s ease-in;
+}
+
+.fake-table-container {
+    width: 100%;
+    height: 100%;
+    background: #EBE9E9;
+    border-radius: 0 16px 16px 0;
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+.copy-all-container {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 10px;
+}
+
+.category-buttons {
+    display: flex;
+    gap: 3px;
+    flex-wrap: wrap;
+    width: 100%; /* Ensure the category buttons span the full width */
+    overflow: hidden;
+}
+
+.category-button {
+    align-items: center;
+    color: white;
+    background: #444;
+    text-align: center;
+    border-radius: 6px;
+    padding: 4px;
+    height: 3em;
+    line-height: 1.5em;
+    transition: background 0.3s ease, transform 0.3s ease;
+    cursor: pointer;
+    font-size: 0.7em;
+}
+
+.category-button:hover {
+    background: #555;
+    transform: scale(1.02);
+}
+
+.copy-all-button {
+    display: grid;
+    grid-template-columns: 60% 40%;
+    align-items: center;
+    font-size: 14px;
+    justify-items: center;
+    width: 110px;
+    background-color: #888;
+    color: white;
+    padding: 10px;
+    border: none;
+    border-radius: 10px;
+    cursor: not-allowed;
+    transition: background .1s ease-out;
+}
+    
+.copy-all-button.active {
+    background-color: #444;
+    cursor: pointer;
+}
+        
+.copy-all-button.active:hover {
+    background-color: #555;
+    transition: background .1s ease-out;
+}
+        
+.copy-icon {
+    grid-column: 2;
+    width: 1.1em;
+    height: 1.1em;
+}
+
+.notification {
+    position: fixed;
+    bottom: 20px;
+    left: 55%;
+    padding: 10px 20px;
+    border-radius: 10px;
+    color: white;
+    font-size: 16px;
+    z-index: 10;
+    opacity: 0;
+    transition: opacity 0.5s ease;
+    width: 20%;
+    text-align: center;
+}
+
+.notification.success {
+    background-color: green;
+}
+
+.notification.error {
+    background-color: red;
+}
+
+.notification.show {
+    opacity: 1;
+}
+
+.notification.fade-out {
+    opacity: 0;
+}
+
+.hidden {
+    display: none;
+}
+
+.fade-in {
+    animation: fadeIn 0.5s ease-out forwards;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.search-container {
+    display: flex;
+    align-items: center;
+    background-color: #111;
+    border-radius: 10px;
+    padding: 5px 10px;
+    gap: 5px;
+    width: 100%;
+    justify-content: center;
+}
+
+.search-input {
+    background: none;
+    border: none;
+    outline: none;
+    color: white;
+    width: 100%;
+    padding: 5px;
+    border-radius: 10px;
+}
+
+.search-input::placeholder {
+    color: #fff;
+}
+
+.search-icon {
+    fill: #fff;
+    cursor: pointer;
+    transition: transform 0.3s ease;
+}
+
+.search-icon:hover {
+    transform: scale(1.1);
+}
+
+.control-buttons {
+    display: flex;
+    gap: 5px;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.control-button {
+    color: white;
+    background: #444;
+    text-align: center;
+    border-radius: 10px;
+    height: 2em;
+    line-height: 2em;
+    transition: background 0.3s ease, transform 0.3s ease;
+    cursor: pointer;
+    padding: 0 10px;
+    font-size: 0.8em;
+}
+
+.control-button:hover {
+    background: #555;
+    transform: scale(1.02);
+}
+
+@media (max-width: 768px) {
+    .control-buttons {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .dropdown-content {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .control-button {
+        width: 100%;
+        text-align: left;
+    }
+}
+
+/* Category table header cursor pointer effect */
+.particle-info thead th {
+    cursor: pointer;
+}
+
+/* Hamburger Menu */
+.hamburger-menu {
+    position: relative;
+}
+
+.hamburger-icon {
+    font-size: 24px;
+    cursor: pointer;
+    transition: transform 0.3s ease;
+}
+
+.hamburger-icon.open::before {
+    content: '\2715'; /* X icon */
+    transform: rotate(0deg);
+}
+
+.hamburger-icon::before {
+    content: '\2630'; /* Hamburger icon */
+    transition: transform 0.3s ease;
+}
+
+.hamburger-icon.open::after {
+    display: none;
+}
+
+/* Grid for Category Buttons */
+.category-buttons {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 5px;
+    width: 100%; /* Span the entire container width */
+    overflow: hidden;
+}
+
+.hidden {
+    display: none;
+}
