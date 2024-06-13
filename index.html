@@ -3,11 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Neoverse Subparticles</title>
+    <title>The Neoverse | Particle Information</title>
     <link rel="stylesheet" href="styles.css">
     <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
 </head>
 <body>
+    <a href="index.html"><img class="logo" src="images/main-logo.png" alt="the neoverse main logo"></a>
     <div class="container">
         <div class="red-dot"></div>
         <div class="yellow-dot"></div>
@@ -29,39 +30,13 @@
             </div>
             <!-- Menu items will be dynamically added here -->
         </div>
-        <div class="particle-info" id="particleInfo">
-            <div class="copy-all-container">
-                <div class="hamburger-menu" id="hamburgerMenu">
-                    <span class="hamburger-icon"></span>
-                    <div class="category-buttons hidden" id="categoryButtons">
-                        <button id="sauzeButton" class="category-button" data-category="Sauze (T)">Sauze (T)</button>
-                        <button id="gravsButton" class="category-button" data-category="Gravs (A)">Gravs (A)</button>
-                        <button id="changeRateButton" class="category-button" data-category="Change Rate">Change Rate</button>
-                        <button id="ennumsButton" class="category-button" data-category="Ennums">Ennums</button>
-                        <button id="negatronsButton" class="category-button" data-category="Negatrons">Negatrons</button>
-                        <button id="positronsButton" class="category-button" data-category="Positrons">Positrons</button>
-                        <button id="tempotronsButton" class="category-button" data-category="Tempotrons">Tempotrons</button>
-                        <button id="neutronsButton" class="category-button" data-category="Neutrons">Neutrons</button>
-                        <button id="statictronsButton" class="category-button" data-category="Statictrons">Statictrons</button>
-                        <button id="electronsButton" class="category-button" data-category="Electrons">Electrons</button>
-                        <button id="ambientsButton" class="category-button" data-category="Ambients">Ambients</button>
-                        <button id="matterTypeButton" class="category-button" data-category="Matter Type">Matter Type</button>
-                        <button id="typeMatterTypeButton" class="category-button" data-category="Type of Matter Type">Type of Matter Type</button>
-                        <button id="subchargeButton" class="category-button" data-category="Subcharge">Subcharge</button>
-                    </div>
-                </div>
-                <button id="copyAllButton" class="copy-all-button">
-                    Copy All
-                    <svg class="copy-icon" width="75%" height="75%" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M7.5 3H14.6C16.8402 3 17.9603 3 18.816 3.43597C19.5686 3.81947 20.1805 4.43139 20.564 5.18404C21 6.03969 21 7.15979 21 9.4V16.5M6.2 21H14.3C15.4201 21 15.9802 21 16.408 20.782C16.7843 20.5903 17.0903 20.2843 17.282 19.908C17.5 19.4802 17.5 18.9201 17.5 17.8V9.7C17.5 8.57989 17.5 8.01984 17.282 7.59202C17.0903 7.21569 16.7843 6.90973 16.408 6.71799C15.9802 6.5 15.4201 6.5 14.3 6.5H6.2C5.0799 6.5 4.51984 6.5 4.09202 6.71799C3.71569 6.90973 3.40973 7.21569 3.21799 7.59202C3 8.01984 3 8.57989 3 9.7V17.8C3 18.9201 3 19.4802 3.21799 19.908C3.40973 20.2843 3.71569 20.5903 4.09202 20.782C4.51984 21 5.0799 21 6.2 21Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                    </svg>
-                </button>
-            </div>
+        <div class="particle-info">
+            <div class="overlay" id="overlay"></div>
             <h2 id="particleTitle"></h2>
             <div class="fake-table-container" id="fakeTableContainer"></div>
-            <div class="table-container">
+            <div class="table-container hidden" id="tableContainer">
                 <table id="infoTable">
-                    <thead class="hidden">
+                    <thead>
                         <tr>
                             <th id="nameHeader">Particle Name</th>
                             <th id="valueHeader">Value</th>
@@ -75,6 +50,33 @@
                     <input type="range" min="0" max="4" value="0" id="valueSlider">
                 </div>
             </div>
+        </div>        
+        <div class="copy-all-container">
+            <div class="hamburger-menu" id="hamburgerMenu">
+                <span class="hamburger-icon"></span>
+                <div class="category-buttons hidden" id="categoryButtons">
+                    <button id="sauzeButton" class="category-button" data-category="Sauze (T)">Sauze (T)</button>
+                    <button id="gravsButton" class="category-button" data-category="Gravs (A)">Gravs (A)</button>
+                    <button id="changeRateButton" class="category-button" data-category="Change Rate">Change Rate</button>
+                    <button id="ennumsButton" class="category-button" data-category="Ennums">Ennums</button>
+                    <button id="negatronsButton" class="category-button" data-category="Negatrons">Negatrons</button>
+                    <button id="positronsButton" class="category-button" data-category="Positrons">Positrons</button>
+                    <button id="tempotronsButton" class="category-button" data-category="Tempotrons">Tempotrons</button>
+                    <button id="neutronsButton" class="category-button" data-category="Neutrons">Neutrons</button>
+                    <button id="statictronsButton" class="category-button" data-category="Statictrons">Statictrons</button>
+                    <button id="electronsButton" class="category-button" data-category="Electrons">Electrons</button>
+                    <button id="ambientsButton" class="category-button" data-category="Ambients">Ambients</button>
+                    <button id="matterTypeButton" class="category-button" data-category="Matter Type">Matter Type</button>
+                    <button id="typeMatterTypeButton" class="category-button" data-category="Type of Matter Type">Type of Matter Type</button>
+                    <button id="subchargeButton" class="category-button" data-category="Subcharge">Subcharge</button>
+                </div>
+            </div>
+            <button id="copyAllButton" class="copy-all-button disabled">
+                Copy All
+                <svg class="copy-icon" width="75%" height="75%" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M7.5 3H14.6C16.8402 3 17.9603 3 18.816 3.43597C19.5686 3.81947 20.1805 4.43139 20.564 5.18404C21 6.03969 21 7.15979 21 9.4V16.5M6.2 21H14.3C15.4201 21 15.9802 21 16.408 20.782C16.7843 20.5903 17.0903 20.2843 17.282 19.908C17.5 19.4802 17.5 18.9201 17.5 17.8V9.7C17.5 8.57989 17.5 8.01984 17.282 7.59202C17.0903 7.21569 16.7843 6.90973 16.408 6.71799C15.9802 6.5 15.4201 6.5 14.3 6.5H6.2C5.0799 6.5 4.51984 6.5 4.09202 6.71799C3.71569 6.90973 3.40973 7.21569 3.21799 7.59202C3 8.01984 3 8.57989 3 9.7V17.8C3 18.9201 3 19.4802 3.21799 19.908C3.40973 20.2843 3.71569 20.5903 4.09202 20.782C4.51984 21 5.0799 21 6.2 21Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+            </button>
         </div>
         <div id="notification" class="notification hidden">
             <span id="notificationText"></span>

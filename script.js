@@ -1,7 +1,8 @@
 document.addEventListener('DOMContentLoaded', () => {
+    // Get DOM elements
     const scrollMenu = document.getElementById('scrollMenu');
     const infoTable = document.getElementById('infoTable').querySelector('tbody');
-    const particleInfo = document.getElementById('particleInfo');
+    const particleInfo = document.querySelector('.particle-info');
     const fakeTableContainer = document.getElementById('fakeTableContainer');
     const particleTitle = document.getElementById('particleTitle');
     const notification = document.getElementById('notification');
@@ -22,8 +23,11 @@ document.addEventListener('DOMContentLoaded', () => {
     const valueSlider = document.getElementById('valueSlider');
     const sliderContainer = document.getElementById('sliderContainer');
     const container = document.querySelector('.container');
+    const tableContainer = document.getElementById('tableContainer');
     const scrollMenuElement = document.querySelector('.scroll-menu');
+    const overlay = document.getElementById('overlay');
 
+    // Event listeners for window controls
     redDot.addEventListener('click', () => {
         window.location.href = 'index.html';
     });
@@ -38,6 +42,8 @@ document.addEventListener('DOMContentLoaded', () => {
         container.style.borderBottomRightRadius = '20px';
         scrollMenuElement.style.borderTopLeftRadius = '20px';
         scrollMenuElement.style.borderBottomLeftRadius = '20px';
+        copyAllButton.style.left = 'calc(100% - 130px)';
+        copyAllButton.style.top = 'calc(50% + 38px)';
     });
 
     greenDot.addEventListener('click', () => {
@@ -50,40 +56,39 @@ document.addEventListener('DOMContentLoaded', () => {
         container.style.borderBottomRightRadius = '0';
         scrollMenuElement.style.borderTopLeftRadius = '0';
         scrollMenuElement.style.borderBottomLeftRadius = '0';
+        copyAllButton.style.left = 'calc(100% - 130px)';
+        copyAllButton.style.top = 'calc(50% + 38px)';
     });
 
+    // Toggle category buttons visibility when hamburger menu is clicked
     hamburgerMenu.addEventListener('click', () => {
         categoryButtons.classList.toggle('hidden');
         hamburgerMenu.classList.toggle('open');
         if (categoryButtons.classList.contains('hidden')) {
             copyAllButton.classList.remove('hidden');
+            overlay.classList.remove('visible');
         } else {
             copyAllButton.classList.add('hidden');
+            overlay.classList.add('visible');
         }
     });
 
-    // Category buttons
-    const categoryButtonsMap = {
-        sauzeButton: 'Sauze (T)',
-        gravsButton: 'Gravs (A)',
-        changeRateButton: 'Change Rate',
-        ennumsButton: 'Ennums',
-        negatronsButton: 'Negatrons',
-        positronsButton: 'Positrons',
-        tempotronsButton: 'Tempotrons',
-        neutronsButton: 'Neutrons',
-        statictronsButton: 'Statictrons',
-        electronsButton: 'Electrons',
-        ambientsButton: 'Ambients',
-        matterTypeButton: 'Matter Type',
-        typeMatterTypeButton: 'Type of Matter Type',
-        subchargeButton: 'Subcharge'
-    };
+    // Ensure hamburger menu and copy all button are always visible
+    hamburgerMenu.classList.remove('hidden');
+    copyAllButton.classList.remove('hidden');
 
-    let currentSortOrder = {
-        name: 'asc',
-        value: 'desc'
-    };
+    // Function to update the copy all button state
+    function updateCopyAllButton() {
+        if (infoTable.children.length > 0) {
+            copyAllButton.classList.remove('disabled');
+            copyAllButton.classList.add('active');
+            copyAllButton.disabled = false;
+        } else {
+            copyAllButton.classList.add('disabled');
+            copyAllButton.classList.remove('active');
+            copyAllButton.disabled = true;
+        }
+    }
 
     // Function to load JSON data
     function loadJSON(callback) {
@@ -98,23 +103,25 @@ document.addEventListener('DOMContentLoaded', () => {
         xhr.send(null);
     }
 
-    // Populate the menu with particle names
-    loadJSON(function (particleData) {
-        function createMenuItems(data) {
-            scrollMenu.querySelectorAll('.menu-item').forEach(item => item.remove());
-            Object.keys(data).forEach(particle => {
-                Object.keys(data[particle]).forEach(type => {
-                    const menuItem = document.createElement('div');
-                    menuItem.classList.add('menu-item');
-                    menuItem.setAttribute('data-particle', particle);
-                    menuItem.setAttribute('data-type', type);
-                    menuItem.textContent = `${particle}`;
-                    menuItem.title = particle;
-                    scrollMenu.appendChild(menuItem);
-                });
+    // Function to populate the menu with particle names
+    function createMenuItems(data) {
+        scrollMenu.querySelectorAll('.menu-item').forEach(item => item.remove());
+        Object.keys(data).forEach(particle => {
+            Object.keys(data[particle]).forEach(type => {
+                const menuItem = document.createElement('div');
+                menuItem.classList.add('menu-item');
+                menuItem.setAttribute('data-particle', particle);
+                menuItem.setAttribute('data-type', type);
+                menuItem.setAttribute('data-sauze', data[particle][type][0]["Sauze (T)"]); // Set Sauze value as a data attribute
+                menuItem.textContent = `${particle}`;
+                menuItem.title = particle;
+                scrollMenu.appendChild(menuItem);
             });
-        }
+        });
+    }
 
+    // Load JSON data and initialize the menu
+    loadJSON(function (particleData) {
         createMenuItems(particleData);
 
         function sortMenuItems(comparator) {
@@ -133,17 +140,17 @@ document.addEventListener('DOMContentLoaded', () => {
 
         sortHeavyButton.addEventListener('click', () => {
             sortMenuItems((a, b) => {
-                const particleA = particleData[a.getAttribute('data-particle')][a.getAttribute('data-type')][0];
-                const particleB = particleData[b.getAttribute('data-particle')][a.getAttribute('data-type')][0];
-                return particleB['Sauze T'] - particleA['Sauze T'];
+                const particleA = parseFloat(a.getAttribute('data-sauze'));
+                const particleB = parseFloat(b.getAttribute('data-sauze'));
+                return particleB - particleA;
             });
         });
 
         sortLightButton.addEventListener('click', () => {
             sortMenuItems((a, b) => {
-                const particleA = particleData[a.getAttribute('data-particle')][a.getAttribute('data-type')][0];
-                const particleB = particleData[b.getAttribute('data-particle')][a.getAttribute('data-type')][0];
-                return particleA['Sauze T'] - particleB['Sauze T'];
+                const particleA = parseFloat(a.getAttribute('data-sauze'));
+                const particleB = parseFloat(b.getAttribute('data-sauze'));
+                return particleA - particleB;
             });
         });
 
@@ -179,13 +186,30 @@ document.addEventListener('DOMContentLoaded', () => {
                     particleInfo.classList.remove('hidden');
                     particleInfo.classList.add('fade-in');
                     fakeTableContainer.classList.add('hidden');
-                    copyAllButton.classList.add('active');
-                    copyAllButton.classList.remove('hidden');
+                    tableContainer.classList.remove('hidden'); // Show the table container
+                    updateCopyAllButton();
                 }
             }
         });
 
         // Event listener for category buttons
+        const categoryButtonsMap = {
+            sauzeButton: 'Sauze (T)',
+            gravsButton: 'Gravs (A)',
+            changeRateButton: 'Change Rate',
+            ennumsButton: 'Ennums',
+            negatronsButton: 'Negatrons',
+            positronsButton: 'Positrons',
+            tempotronsButton: 'Tempotrons',
+            neutronsButton: 'Neutrons',
+            statictronsButton: 'Statictrons',
+            electronsButton: 'Electrons',
+            ambientsButton: 'Ambients',
+            matterTypeButton: 'Matter Type',
+            typeMatterTypeButton: 'Type of Matter Type',
+            subchargeButton: 'Subcharge'
+        };
+
         Object.keys(categoryButtonsMap).forEach(buttonId => {
             document.getElementById(buttonId).addEventListener('click', () => {
                 const category = categoryButtonsMap[buttonId];
@@ -217,8 +241,13 @@ document.addEventListener('DOMContentLoaded', () => {
                     particleInfo.classList.remove('hidden');
                     particleInfo.classList.add('fade-in');
                     fakeTableContainer.classList.add('hidden');
-                    copyAllButton.classList.add('active');
+                    tableContainer.classList.remove('hidden'); // Show the table container
+                    updateCopyAllButton();
+
+                    // Ensure hamburger menu and copy all button are visible
+                    hamburgerMenu.classList.remove('hidden');
                     copyAllButton.classList.remove('hidden');
+
                     categoryButtons.classList.add('hidden');
                     hamburgerMenu.classList.remove('open');
 
@@ -257,7 +286,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const rows = Array.from(infoTable.querySelectorAll('tr'));
             rows.sort((a, b) => {
                 const valueA = a.querySelectorAll('td')[1].textContent;
-                const valueB = b.querySelectorAll('td')[1].textContent;
+                const valueB = a.querySelectorAll('td')[1].textContent;
                 const numA = parseFloat(valueA);
                 const numB = parseFloat(valueB);
 
@@ -318,12 +347,17 @@ document.addEventListener('DOMContentLoaded', () => {
 
         // Copy all table info to clipboard
         copyAllButton.addEventListener('click', () => {
-            const text = infoTable.innerText;
-            navigator.clipboard.writeText(text).then(() => {
-                showNotification('All information copied to clipboard.');
-            }).catch(() => {
-                showNotification('Failed to copy all information.', false);
-            });
+            if (!copyAllButton.disabled) {
+                const text = infoTable.innerText;
+                navigator.clipboard.writeText(text).then(() => {
+                    showNotification('All information copied to clipboard.');
+                }).catch(() => {
+                    showNotification('Failed to copy all information.', false);
+                });
+            }
         });
     });
+
+    // Initialize button state
+    updateCopyAllButton();
 });

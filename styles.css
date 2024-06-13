@@ -1,3 +1,11 @@
+.logo {
+    position: absolute;
+    top: 1vh;
+    left: 1vw;
+    width: 200px;
+}
+
+/* General styles */
 body {
     margin: 0;
     padding: 0;
@@ -13,6 +21,7 @@ body {
 body, .container, .scroll-menu, .control-buttons, .copy-all-container, .hamburger-menu, .notification {
     user-select: none;
 }
+
 
 .particle-info td {
     user-select: text;
@@ -44,18 +53,21 @@ body, .container, .scroll-menu, .control-buttons, .copy-all-container, .hamburge
 }
 
 .red-dot {
-    right: 60px;
+    right: 20px;
     background-color: #ff4d4d;
+    box-shadow: 0 0 9px rgba(0, 0, 0, 0.432);
 }
 
 .yellow-dot {
-    right: 40px;
+    right: 60px;
     background-color: #ffcc00;
+    box-shadow: 0 0 9px rgba(0, 0, 0, 0.24);
 }
 
 .green-dot {
-    right: 20px;
+    right: 40px;
     background-color: #66ff66;
+    box-shadow: 0 0 9px rgba(0, 0, 0, 0.356);
 }
 
 .red-dot:hover, .yellow-dot:hover, .green-dot:hover {
@@ -78,6 +90,22 @@ body, .container, .scroll-menu, .control-buttons, .copy-all-container, .hamburge
     padding-top: 0px;
 }
 
+/* Scrollbar styling */
+.scroll-menu::-webkit-scrollbar {
+    width: 8px; /* Make scrollbar skinny */
+}
+
+.scroll-menu::-webkit-scrollbar-track {
+    background: #444; /* Track color */
+    border-radius: 10px; /* Track border radius */
+}
+
+.scroll-menu::-webkit-scrollbar-thumb {
+    background-color: #888; /* Thumb color */
+    border-radius: 10px; /* Thumb border radius */
+    border: 2px solid #444; /* Border to create space around thumb */
+}
+
 .sticky-container {
     position: sticky;
     top: 0;
@@ -91,10 +119,6 @@ body, .container, .scroll-menu, .control-buttons, .copy-all-container, .hamburge
     gap: 1em;
     align-items: center;
     padding-bottom: 1em;
-}
-
-.scroll-menu::-webkit-scrollbar {
-    display: none;
 }
 
 .menu-item {
@@ -132,6 +156,7 @@ body, .container, .scroll-menu, .control-buttons, .copy-all-container, .hamburge
     box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.1);
     overflow: hidden;
     position: relative;
+    z-index: 0; /* Ensure it is behind the overlay */
 }
 
 .particle-info h2 {
@@ -139,6 +164,7 @@ body, .container, .scroll-menu, .control-buttons, .copy-all-container, .hamburge
     font-size: 24px;
     text-align: center;
     z-index: 1;
+    margin-top: 60px; /* Ensure the h2 is not obstructed */
 }
 
 .table-container {
@@ -149,10 +175,27 @@ body, .container, .scroll-menu, .control-buttons, .copy-all-container, .hamburge
     z-index: 1;
     border-radius: 16px;
     border: none;
+    display: flex;
+    justify-content: center; /* Center horizontally */
+    align-items: center; /* Center vertically */
+    flex-direction: column; /* Align table and h2 vertically */
+    padding-top: 60px; /* Ensure the table is not obstructed */
 }
 
+/* Scrollbar styling for table container */
 .table-container::-webkit-scrollbar {
-    display: none;
+    width: 8px; /* Make scrollbar skinny */
+}
+
+.table-container::-webkit-scrollbar-track {
+    background: #ddd; /* Track color */
+    border-radius: 10px; /* Track border radius */
+}
+
+.table-container::-webkit-scrollbar-thumb {
+    background-color: #aaa; /* Thumb color */
+    border-radius: 10px; /* Thumb border radius */
+    border: 2px solid #ddd; /* Border to create space around thumb */
 }
 
 .particle-info table {
@@ -212,6 +255,9 @@ body, .container, .scroll-menu, .control-buttons, .copy-all-container, .hamburge
     align-items: center;
     justify-content: space-between;
     margin-bottom: 10px;
+    position: absolute;
+    top: 10px;
+    right: 10px;
 }
 
 .category-buttons {
@@ -241,42 +287,50 @@ body, .container, .scroll-menu, .control-buttons, .copy-all-container, .hamburge
     transform: scale(1.02);
 }
 
+/* Copy All Button */
 .copy-all-button {
     display: grid;
-    grid-template-columns: 60% 40%;
+    position: absolute;
+    left: calc(100% - 130px); /* Adjusted left value */
+    top: calc(50% + 38px); /* Adjusted top value */
+    text-align: center;
+    grid-template-columns: 2fr 1fr;
     align-items: center;
     font-size: 14px;
     justify-items: center;
-    width: 110px;
-    background-color: #888;
+    width: 106px;
+    background-color: #ccc; /* Initial disabled color */
     color: white;
     padding: 10px;
     border: none;
     border-radius: 10px;
-    cursor: not-allowed;
+    cursor: not-allowed; /* Initial disabled cursor */
     transition: background .1s ease-out;
+    min-width: 80px;
+    max-width: 120px;
 }
-    
+
 .copy-all-button.active {
-    background-color: #444;
-    cursor: pointer;
+    background-color: #444; /* Active color */
+    cursor: pointer; /* Active cursor */
 }
-        
+
 .copy-all-button.active:hover {
-    background-color: #555;
+    background-color: #555; /* Hover color for active state */
     transition: background .1s ease-out;
 }
-        
+
 .copy-icon {
     grid-column: 2;
     width: 1.1em;
     height: 1.1em;
 }
 
+/* Notification */
 .notification {
     position: fixed;
     bottom: 20px;
-    left: 55%;
+    left: 53%;
     padding: 10px 20px;
     border-radius: 10px;
     color: white;
@@ -284,7 +338,7 @@ body, .container, .scroll-menu, .control-buttons, .copy-all-container, .hamburge
     z-index: 10;
     opacity: 0;
     transition: opacity 0.5s ease;
-    width: 20%;
+    width: 25%;
     text-align: center;
 }
 
@@ -304,6 +358,7 @@ body, .container, .scroll-menu, .control-buttons, .copy-all-container, .hamburge
     opacity: 0;
 }
 
+/* Animations */
 .hidden {
     display: none;
 }
@@ -323,6 +378,7 @@ body, .container, .scroll-menu, .control-buttons, .copy-all-container, .hamburge
     }
 }
 
+/* Search Container */
 .search-container {
     display: flex;
     align-items: center;
@@ -358,6 +414,7 @@ body, .container, .scroll-menu, .control-buttons, .copy-all-container, .hamburge
     transform: scale(1.1);
 }
 
+/* Control Buttons */
 .control-buttons {
     display: flex;
     gap: 5px;
@@ -399,16 +456,31 @@ body, .container, .scroll-menu, .control-buttons, .copy-all-container, .hamburge
         width: 100%;
         text-align: left;
     }
+
+    .copy-all-container {
+        flex-direction: column;
+        align-items: flex-end;
+    }
+
+    .hamburger-menu, .copy-all-button {
+        margin-bottom: 10px;
+    }
 }
 
 /* Category table header cursor pointer effect */
 .particle-info thead th {
-    cursor: pointer;
+    cursor: default;
 }
 
 /* Hamburger Menu */
 .hamburger-menu {
-    position: relative;
+    position: absolute;
+    top: calc(50% + 38px); /* Adjusted top value */
+    left: calc(35% + 25px); /* Adjusted left value */
+    z-index: 1111;
+    min-width: 40px;
+    max-width: 120px;
+    width: 120px;
 }
 
 .hamburger-icon {
@@ -434,12 +506,31 @@ body, .container, .scroll-menu, .control-buttons, .copy-all-container, .hamburge
 /* Grid for Category Buttons */
 .category-buttons {
     display: flex;
+    flex-direction: column;
+    justify-content: center;
     flex-wrap: wrap;
+    width: 8em;
     gap: 5px;
-    width: 100%; /* Span the entire container width */
-    overflow: hidden;
 }
 
+/* Ensure .hidden class is applied for elements to be initially hidden */
 .hidden {
     display: none;
+}
+
+/* Overlay when hamburger menu is open */
+.overlay {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #EBE9E9; /* Match the background color */
+    z-index: 2; /* Ensure it is in front of everything within particle-info */
+    display: none; /* Hide it by default */
+}
+
+.overlay.visible {
+    display: block;
 }
