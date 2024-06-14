@@ -1,0 +1,76 @@
+body {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+    background-color: #f0f0f0;
+    height: 100vh;
+}
+
+/* Logo CSS */
+#logo-container {
+background-color: #f2f2f2;
+}
+
+.logo-link {
+    text-decoration: none; /* Ensures no underline for the link */
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    border-radius: 10px;
+    padding: .3vh .3vw; /* Adjusted padding */
+    transition: background-color .2s ease-in;
+    overflow: visible; /* Allow elements to overflow the container */
+}
+
+.logo:hover {
+    background-color: #ddd;
+    transition: background-color .2s ease-out;
+}
+
+.orb {
+    width: 60px;
+    height: 60px;
+    position: relative; /* Make orb position relative for animation */
+    transition: transform 1s ease-in-out;
+    display: block; /* Ensure the orb is displayed */
+    transform: none; /* Reset any transformations applied previously */
+}
+
+@keyframes wiggle-loose {
+    0% { transform: rotate(0deg) translateY(0); }
+    20% { transform: rotate(5deg) translateY(5px); }
+    40% { transform: rotate(-5deg) translateY(10px); }
+    60% { transform: rotate(5deg) translateY(15px); }
+    80% { transform: rotate(-5deg) translateY(20px); }
+    100% { transform: rotate(0deg) translateY(25px); }
+}
+
+@keyframes bounce {
+    0% { transform: translateY(0); }
+    20% { transform: translateY(-10px); }
+    40% { transform: translateY(0); }
+    60% { transform: translateY(-5px); }
+    80% { transform: translateY(0); }
+    100% { transform: translateY(0); }
+}
+
+@keyframes fall {
+    0% { transform: translateY(0) rotate(0deg); }
+    100% { transform: translateY(100vh) rotate(360deg); }
+}
+
+@keyframes grow-back {
+    0% { transform: scale(0) rotate(0deg); }
+    100% { transform: scale(1) rotate(360deg); }
+}
+
+.logo .logo-text {
+    font-size: 20px; /* Adjusted font size */
+    color: #000;
+    margin-left: 10px;
+    margin-right: 5px;
+    text-decoration: none; /* Ensures no underline for the text */
+    transition: margin-left 1s ease-in-out; /* Ensure smooth animation for margin-left */
+}
